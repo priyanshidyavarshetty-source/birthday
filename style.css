@@ -1,0 +1,249 @@
+/* --- General Setup --- */
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: F1E8DF; /* Cream Background */
+    font-family: 'Times New Roman', Times, serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-container {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    text-align: center;
+    transition: opacity 1s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+/* --- Typography --- */
+.title, .subtitle, .message-content {
+    font-family: 'Times New Roman', Times, serif;
+    color: #000000;
+}
+.title { font-size: 3.5rem; margin-bottom: 10px; }
+.subtitle { font-size: 1.8rem; margin-bottom: 40px; }
+
+/* --- Button Styling --- */
+.btn {
+    background-color: #f1e8df; /* Cream Background */;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+.btn:hover { transform: scale(1.05); }
+
+/* --- Right Side Balloons (Original) --- */
+.balloon-bundle {
+    position: absolute;
+    right: 10%; /* Anchored to right */
+    bottom: -400px;
+    animation: slideUp 2.5s ease-out forwards, float 4s ease-in-out infinite 2.5s;
+}
+
+/* --- Left Side Balloons (New) --- */
+.balloon-bundle-left {
+    position: absolute;
+    left: 10%; /* Anchored to left */
+    bottom: -400px;
+    animation: slideUp 2.5s ease-out forwards, float 4.8s ease-in-out infinite 2.5s; /* Slightly different speed for variety */
+}
+
+/* Updated Slide Animation to move them higher */
+@keyframes slideUp { 
+    to { bottom: 280px; } /* Increased from your previous layout to move them UP */
+}
+
+/* Floating animation stays the same */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(3deg); }
+}
+
+/* Balloon colors and shapes (Shared) */
+.balloon {
+    width: 60px; height: 75px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    position: absolute; opacity: 0.8;
+}
+.pink { background: #f4c2d7; left: -20px; top: 0; }
+.purple { background: #c2b9db; left: 10px; top: -10px; }
+.yellow { background: #f9e8a0; left: 0px; top: 30px; }
+.blue { background: #d0e8f2; left: 30px; top: 10px; }
+.string { width: 2px; height: 120px; background: #ccc; margin-top: 100px; margin-left: 25px; }
+
+/* --- PAGE 2: UPDATED STYLES --- */
+
+/* 1. The Message Text - Moved Up */
+.message-content {
+    position: absolute;
+    top: 15%; /* Moves text higher up */
+    left: 10%;
+    text-align: left;
+    font-size: 2rem;
+    line-height: 1.6;
+    z-index: 5; /* Ensures text stays on top */
+}
+
+/* 2. The Camera - Background Blend Fix */
+.camera-container {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    width: 120px;
+    transform: rotate(15deg);
+}
+.camera-img {
+    width: 100%;
+    /* This makes any white background in the image transparent! */
+    mix-blend-mode: multiply; 
+}
+
+/* FLASH ANIMATION */
+.flash-overlay {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 30px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 5;
+    animation: cameraFlash 3s infinite; 
+}
+
+@keyframes cameraFlash {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    5% { opacity: 0.8; transform: translate(-50%, -50%) scale(15); }
+    10% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; }
+}
+
+/* 3. The Cake - Pinned to the bottom-left corner of the screen */
+.cake-container {
+    position: fixed !important; /* Force it to stay relative to the window */
+    bottom: 20px !important;    /* 20px from the bottom edge */
+    left: 20px !important;      /* 20px from the left edge */
+    width: 280px;               
+    z-index: 100;               /* Ensure it stays on top of the background */
+    pointer-events: none;       /* Prevents the image from blocking button clicks */
+}
+
+.cake-img {
+    width: 100%;
+    display: block;
+    mix-blend-mode: multiply;   /* Blends the white background away */
+}
+
+.next-button-container.hidden {
+    display: none;
+    position: center;
+}
+
+#typewriter-text {
+    min-height: 150px; /* Prevents the page from jumping while typing */
+    white-space: pre-wrap;
+}
+
+/* --- PAGE 3: Photo Cards --- */
+.photo-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 50px;
+}
+
+.photo-card {
+    background: #ede2d5; /* Card background color from image_16cf41.png */
+    padding: 15px;
+    width: 200px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.photo-card p {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* --- PAGE 4: Final Message --- */
+.final-card {
+    background: #ede2d5; /* Match frame 35 */
+    width: 80%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 40px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.final-card p {
+    font-family: 'Times New Roman', Times, serif; /* Match handwritten style */
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #000;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+/* Fix Page 2 Button: Moves it up so it is visible */
+.message-content {
+    position: absolute;
+    top: 40%; 
+    left: 50%;
+    transform: translate(-50%, -40%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    text-align: center;
+}
+
+/* Fix Page 3 Button: Moves it lower so it doesn't overlap photos */
+.photo-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 20px; /* Space inside the grid */
+    margin-bottom: 30px; /* Pushes the button further down */
+}
+
+#page3 .next-button-container {
+    margin-top: 40px; /* Extra space to ensure the button is clear of the cards */
+    display: flex;
+    justify-content: center;
+}
+
+/* Ensure the button is styled consistently */
+.btn {
+    padding: 10px 25px;
+    cursor: pointer;
+    background-color: #f0e6dd;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+}
